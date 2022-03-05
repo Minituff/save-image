@@ -4,7 +4,8 @@
   "description": "Saves an image from a url into your repo",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "ncc build lib/index.js --license licenses.txt"
   },
   "repository": {
     "type": "git",

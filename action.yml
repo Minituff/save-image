@@ -2,10 +2,17 @@ name: 'Save image'
 description: 'Saves an image from an URL to a path'
 
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  url:
+    description: 'The URL of the image to save'
     required: true
     default: 'World'
+  imagePath:
+    description: 'The relative path where the image should be stateOverride'
+    required: true
+    default: '.'
+  deleteOnFail:
+   description: 'Delete the image if it fails to load'
+   required: false
 
 outputs:
   time: # id of output
