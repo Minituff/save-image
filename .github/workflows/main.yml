@@ -3,7 +3,7 @@ on: [push]
 jobs:
   update_wakatime_image:
     runs-on: ubuntu-latest
-    name: Save my wakatime stats to a file
+    name: Save wakatime stats to file
     steps:
       # To use this repository's private action, you musWt check out the repository
       - name: Checkout
@@ -16,7 +16,8 @@ jobs:
           imagePath: 'media/test.svg'
           deleteOnFail: true
       # If you do not commit the changes, then the action does not work
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: "Commit changes if necessary"
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Updating media/test.svg
   

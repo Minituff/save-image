@@ -26,6 +26,7 @@ const main = async () => {
       try {
         response = await fetch(url);
       } catch (error) {
+        console.log(`Image failed to load.`)
         core.setOutput("imageLoaded", false);
         
         if (deleteOnFail) {
