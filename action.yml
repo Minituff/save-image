@@ -7,7 +7,7 @@ inputs:
     required: true
     default: 'World'
   imagePath:
-    description: 'The relative path where the image should be stateOverride'
+    description: 'The relative path where the image should be saved'
     required: true
     default: '.'
   deleteOnFail:
@@ -15,8 +15,8 @@ inputs:
    required: false
 
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  imageLoaded:
+    description: 'boolean - Did the image load or not?'
 
 runs:
   using: 'node16'
