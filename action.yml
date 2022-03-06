@@ -13,6 +13,10 @@ inputs:
   deleteOnFail:
    description: 'Delete the image if it fails to load'
    required: false
+  requiredContentType:
+   description: 'Require a certain content type or the image will be rejected. Case sensitive'
+   required: false
+   default: ''
 
 outputs:
   imageLoaded:
