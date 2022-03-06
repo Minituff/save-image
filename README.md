@@ -2,8 +2,6 @@
 
 Saves an image from a URL into your GitHub repo
 
-![Test](./media/test.svg)
-
 ## Usage
 
 ```yml
