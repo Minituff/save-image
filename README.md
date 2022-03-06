@@ -2,7 +2,7 @@
 
 Saves an image from a URL into your GitHub repo.
 
-This allows you to cache netowrk images to be used within your repositories.
+This allows you to cache network images to be used within your repositories. This is useful for faster loading READMEs and for URLs that timeout sometimes.
 
 ## Usage
 
