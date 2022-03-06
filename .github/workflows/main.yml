@@ -5,10 +5,12 @@ jobs:
     runs-on: ubuntu-latest
     name: Save wakatime stats to file
     steps:
+      # This is required to use the git-auto-commit-action
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.head_ref }}
 
+      # Load and cache the image
       - name: Save my WakaTime stats to my repo
         uses: Minituff/save-image@dev
         id: wakatime

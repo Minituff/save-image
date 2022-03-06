@@ -1,6 +1,8 @@
-# save-image Action
+# GitHub Action: *save-image*
 
-Saves an image from a URL into your GitHub repo
+Saves an image from a URL into your GitHub repo.
+
+This allows you to cache netowrk images to be used within your repositories.
 
 ## Usage
 
@@ -19,7 +21,7 @@ with:
     # Optional. Allows for the deletion of the image if the URL fails to load
     deleteOnFail: false
 
-    #Optional. Reject this image if the response header content-type does not match this exactly.
+    #Optional. Reject the network image if the response header content-type does not match this exactly.
     requiredContentType: 'image/svg+xml; charset=utf-8'
 ```
 
@@ -41,7 +43,12 @@ on:
 
 jobs:
   update_cat_image:
-  
+    # This is required to use the git-auto-commit-action. It must come before save-image
+  - uses: actions/checkout@v2
+    with:
+      ref: ${{ github.head_ref }}
+
+    # Run the save-image action
     - name: "Save cat image from URL" 
     uses: minituff/save-image
     id: wakatime
