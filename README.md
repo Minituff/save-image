@@ -2,6 +2,8 @@
 
 Saves an image from a URL into your GitHub repo
 
+![Test](./media/test.svg)
+
 ## Usage
 
 ```yml
@@ -18,6 +20,9 @@ with:
     
     # Optional. Allows for the deletion of the image if the URL fails to load
     deleteOnFail: false
+
+    #Optional. Reject this image if the response header content-type does not match this exactly.
+    requiredContentType: 'image/svg+xml; charset=utf-8'
 ```
 
 ## Note

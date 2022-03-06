@@ -11526,20 +11526,24 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
 "use strict";
+var exports = __webpack_exports__;
 
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 const github = __nccwpck_require__(3007);
 const core = __nccwpck_require__(115);
 const fs = __nccwpck_require__(7147);
-const fetch = __nccwpck_require__(2133);
+const node_fetch_1 = __nccwpck_require__(2133);
 const path = __nccwpck_require__(1017);
 const main = async () => {
     try {
         const url = core.getInput('url');
         const imagePath = core.getInput('imagePath');
         const deleteOnFail = core.getInput('deleteOnFail');
+        const requiredContentType = core.getInput('requiredContentType');
         console.log(`url: ${url}`);
         console.log(`imagePath: ${imagePath}`);
         console.log(`deleteOnFail: ${deleteOnFail}`);
+        console.log(`requiredContentType: ${requiredContentType}`);
         async function ensureDirectoryExistence(filePath) {
             const dirname = path.dirname(filePath);
             const exists = await fs.existsSync(dirname);
@@ -11549,9 +11553,9 @@ const main = async () => {
             return true;
         }
         async function downloadImage(url, imagePath) {
-            let response;
+            let res;
             try {
-                response = await fetch(url);
+                res = await node_fetch_1.default(url);
             }
             catch (error) {
                 console.log(`Image failed to load.`);
@@ -11567,7 +11571,12 @@ const main = async () => {
                 }
             }
             core.setOutput("imageLoaded", true);
-            const buffer = await response.buffer();
+            const contentType = res.headers.get('content-type');
+            if (requiredContentType != "" && contentType != requiredContentType) {
+                console.log(`Image contentType '${contentType}' does not match the requiredContent type of '${requiredContentType}'`);
+                return;
+            }
+            const buffer = await res.buffer();
             fs.writeFile(imagePath, buffer, () => console.log(`Saved ${imagePath}`));
         }
         if (url == "" || url == undefined) {

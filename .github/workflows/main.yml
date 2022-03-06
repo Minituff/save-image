@@ -15,6 +15,7 @@ jobs:
           url: 'https://minituff-github-readme-stats.vercel.app/api/wakatime?username=minituffFAKE&langs_count=18&layout=compact&custom_title=My%20Code%20Stats'
           imagePath: 'media/test.svg'
           deleteOnFail: false
+          requiredContentType: 'image/svg+xml; charset=utf-8'
       # If you do not commit the changes, then the action does not work
       - name: "Commit changes if necessary"
         uses: stefanzweifel/git-auto-commit-action@v4

@@ -2,7 +2,7 @@ const github = require('@actions/github');
 const core = require('@actions/core');
 
 const fs = require('fs');
-const fetch = require('node-fetch');
+import fetch, { Response } from 'node-fetch';
 const path = require('path');
 
 
@@ -11,10 +11,12 @@ const main = async () => {
     const url = core.getInput('url');
     const imagePath = core.getInput('imagePath');
     const deleteOnFail = core.getInput('deleteOnFail');
+    const requiredContentType = core.getInput('requiredContentType');
     
     console.log(`url: ${url}`);
     console.log(`imagePath: ${imagePath}`);
     console.log(`deleteOnFail: ${deleteOnFail}`);
+    console.log(`requiredContentType: ${requiredContentType}`);
 
     async function ensureDirectoryExistence(filePath: string) {
       const dirname = path.dirname(filePath);
@@ -26,10 +28,11 @@ const main = async () => {
     }
 
     async function downloadImage(url: string, imagePath: string) {
-      let response
+      let res: Response
       
       try {
-        response = await fetch(url);
+        res = await fetch(url);
+        
       } catch (error) {
         console.log(`Image failed to load.`)
         core.setOutput("imageLoaded", false);
@@ -45,7 +48,15 @@ const main = async () => {
 
       }
       core.setOutput("imageLoaded", true);
-      const buffer = await response.buffer();
+
+
+      const contentType = res.headers.get('content-type');
+      if (requiredContentType != "" && contentType != requiredContentType){
+        console.log(`Image contentType '${contentType}' does not match the requiredContent type of '${requiredContentType}'`)
+        return
+      }
+
+      const buffer = await res.buffer();
       fs.writeFile(imagePath, buffer, () => console.log(`Saved ${imagePath}`));
     }
 
