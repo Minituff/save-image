@@ -31,6 +31,7 @@ const main = async () => {
       let res: Response
       
       try {
+        console.log("Fetching image...")
         res = await fetch(url);
         
       } catch (error) {
