@@ -31,6 +31,7 @@ const main = async () => {
       let res: Response
       
       try {
+        console.log("Fetching image...")
         res = await fetch(url);
         
       } catch (error) {
@@ -48,7 +49,7 @@ const main = async () => {
 
       }
       core.setOutput("imageLoaded", true);
-
+      console.log(`Image loaded`)
 
       const contentType = res.headers.get('content-type');
       if (requiredContentType != "" && contentType != requiredContentType){

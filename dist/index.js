@@ -11555,6 +11555,7 @@ const main = async () => {
         async function downloadImage(url, imagePath) {
             let res;
             try {
+                console.log("Fetching image...");
                 res = await node_fetch_1.default(url);
             }
             catch (error) {
@@ -11571,6 +11572,7 @@ const main = async () => {
                 }
             }
             core.setOutput("imageLoaded", true);
+            console.log(`Image loaded`);
             const contentType = res.headers.get('content-type');
             if (requiredContentType != "" && contentType != requiredContentType) {
                 console.log(`Image contentType '${contentType}' does not match the requiredContent type of '${requiredContentType}'`);
