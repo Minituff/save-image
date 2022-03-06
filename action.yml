@@ -1,5 +1,6 @@
 name: 'Save image'
 description: 'Saves an image from an URL to a path'
+author: 'James Tufarelli - Minituff'
 
 inputs:
   url:
