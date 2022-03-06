@@ -60,5 +60,5 @@ jobs:
     - name: "Commit changes if necessary"
     uses: stefanzweifel/git-auto-commit-action@v4
     with:
-        commit_message: Updating media/test.svg
+        commit_message: Updating media/cat.png
 ```
