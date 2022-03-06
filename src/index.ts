@@ -11,10 +11,19 @@ const main = async () => {
     const url = core.getInput('url');
     const imagePath = core.getInput('imagePath');
     const deleteOnFail = core.getInput('deleteOnFail');
-
+    
     console.log(`url: ${url}`);
     console.log(`imagePath: ${imagePath}`);
     console.log(`deleteOnFail: ${deleteOnFail}`);
+
+    async function ensureDirectoryExistence(filePath: string) {
+      const dirname = path.dirname(filePath);
+      const exists = await fs.existsSync(dirname)
+      if (exists) return true
+      
+      fs.mkdir(dirname, { recursive: true }, () => console.log(`${filePath} created`));
+      return true
+    }
 
     async function downloadImage(url: string, imagePath: string) {
       let response
@@ -50,6 +59,7 @@ const main = async () => {
       return
     }
 
+    await ensureDirectoryExistence(imagePath)
     await downloadImage(url, imagePath)
 
   } catch (error: any) {

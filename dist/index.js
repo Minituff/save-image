@@ -11540,6 +11540,14 @@ const main = async () => {
         console.log(`url: ${url}`);
         console.log(`imagePath: ${imagePath}`);
         console.log(`deleteOnFail: ${deleteOnFail}`);
+        async function ensureDirectoryExistence(filePath) {
+            const dirname = path.dirname(filePath);
+            const exists = await fs.existsSync(dirname);
+            if (exists)
+                return true;
+            fs.mkdir(dirname, { recursive: true }, () => console.log(`${filePath} created`));
+            return true;
+        }
         async function downloadImage(url, imagePath) {
             let response;
             try {
@@ -11570,6 +11578,7 @@ const main = async () => {
             core.setFailed("imagePath does not exist");
             return;
         }
+        await ensureDirectoryExistence(imagePath);
         await downloadImage(url, imagePath);
     }
     catch (error) {
