@@ -61,4 +61,8 @@ jobs:
     uses: stefanzweifel/git-auto-commit-action@v4
     with:
         commit_message: Updating media/cat.png
+        # The lines below disable the "co-authoring" feature of this action
+        commit_user_name: github-actions[bot]
+        commit_user_email: github-actions[bot]@users.noreply.github.com
+        commit_author: Author <github-actions[bot]@users.noreply.github.com>
 ```
