@@ -11571,6 +11571,7 @@ const main = async () => {
                 }
             }
             core.setOutput("imageLoaded", true);
+            console.log(`Image loaded`);
             const contentType = res.headers.get('content-type');
             if (requiredContentType != "" && contentType != requiredContentType) {
                 console.log(`Image contentType '${contentType}' does not match the requiredContent type of '${requiredContentType}'`);
