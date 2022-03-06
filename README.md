@@ -8,7 +8,6 @@ This allows you to cache network images to be used within your repositories. Thi
 
 ```yml
 uses: minituff/save-image
-id: wakatime
 with:
     # Required. This is the URL from which the image will be pulled
     url: 'https://cat.png'
