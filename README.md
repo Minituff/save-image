@@ -50,7 +50,6 @@ jobs:
     # Run the save-image action
     - name: "Save cat image from URL" 
     uses: minituff/save-image
-    id: wakatime
     with:
         url: 'https://cat.png'
         imagePath: 'media/cat.png'
