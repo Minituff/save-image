@@ -1,9 +1,8 @@
-const github = require('@actions/github');
-const core = require('@actions/core');
+import core = require('@actions/core');
 
-const fs = require('fs');
+import fs = require('fs');
 import fetch, { Response } from 'node-fetch';
-const path = require('path');
+import path = require('path');
 
 
 const main = async () => {
@@ -12,7 +11,7 @@ const main = async () => {
     const imagePath = core.getInput('imagePath');
     const deleteOnFail = core.getInput('deleteOnFail');
     const requiredContentType = core.getInput('requiredContentType');
-    
+
     console.log(`url: ${url}`);
     console.log(`imagePath: ${imagePath}`);
     console.log(`deleteOnFail: ${deleteOnFail}`);
@@ -20,30 +19,31 @@ const main = async () => {
 
     async function ensureDirectoryExistence(filePath: string) {
       const dirname = path.dirname(filePath);
-      const exists = await fs.existsSync(dirname)
+      const exists = fs.existsSync(dirname)
       if (exists) return true
-      
+
       fs.mkdir(dirname, { recursive: true }, () => console.log(`${filePath} created`));
       return true
     }
 
     async function downloadImage(url: string, imagePath: string) {
       let res: Response
-      
+
       try {
         console.log("Fetching image...")
         res = await fetch(url);
-        
-      } catch (error) {
+
+      } catch (error: any) {
         console.log(`Image failed to load.`)
         core.setOutput("imageLoaded", false);
-        
+
         if (deleteOnFail) {
           console.log(`deleteOnFail == true. Deleting ${imagePath}`)
-          await fs.unlink(imagePath, () => console.log(`${imagePath} deleted`))
+          fs.unlink(imagePath, () => console.log(`${imagePath} deleted`))
           return
+        
         } else {
-          core.setFailed(error)
+          core.setFailed(error.message)
           return
         }
 
@@ -52,7 +52,7 @@ const main = async () => {
       console.log(`Image loaded`)
 
       const contentType = res.headers.get('content-type');
-      if (requiredContentType != "" && contentType != requiredContentType){
+      if (requiredContentType != "" && contentType != requiredContentType) {
         console.log(`Image contentType '${contentType}' does not match the requiredContent type of '${requiredContentType}'`)
         return
       }
