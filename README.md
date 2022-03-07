@@ -7,7 +7,7 @@ This allows you to cache network images to be used within your repositories. Thi
 ## Usage
 
 ```yml
-uses: minituff/save-image
+uses: minituff/save-image@v1.4
 with:
     # Required. This is the URL from which the image will be pulled
     url: 'https://cat.png'
@@ -49,7 +49,7 @@ jobs:
 
     # Run the save-image action
     - name: "Save cat image from URL" 
-    uses: minituff/save-image
+    uses: minituff/save-image@v1.4
     with:
         url: 'https://cat.png'
         imagePath: 'media/cat.png'
